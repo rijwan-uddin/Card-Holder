@@ -53,6 +53,7 @@ class _homepageState extends State<homepage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),
                 label: 'Favorite'
+
             ),
           ],
         ),

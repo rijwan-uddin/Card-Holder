@@ -14,6 +14,8 @@ class ScanPage extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPage> {
+  bool isScanOver = false ;
+  List<String> lines = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +42,9 @@ class _ScanPageState extends State<ScanPage> {
                 label: Text('Gallery'),
               )
             ],
+          ),
+          Wrap(
+            children: lines.map((line) => LineItem(line: line)).toList(),
           )
         ],
       ),
@@ -63,7 +68,41 @@ class _ScanPageState extends State<ScanPage> {
           tempList.add(line.text);
         }
       }
-      print(tempList);
+      setState(() {
+
+        lines = tempList;
+        isScanOver= true;
+      });
     }
+  }
+}
+
+class LineItem extends StatelessWidget {
+  final String line;
+  const LineItem({super.key, required this.line});
+
+  @override
+  Widget build(BuildContext context) {
+    return LongPressDraggable(
+      data: line,
+      dragAnchorStrategy: childDragAnchorStrategy,
+      feedback: Container(
+        key: GlobalKey(),
+        padding: const EdgeInsets.all(9),
+        decoration: const BoxDecoration(
+          color: Colors.black45,
+        ),
+        child: Text(
+          line,
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(color: Colors.white),
+        ),
+      ),
+      child: Chip(
+        label: Text(line),
+      ),
+    );
   }
 }

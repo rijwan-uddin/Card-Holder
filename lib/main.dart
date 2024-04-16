@@ -1,4 +1,3 @@
-import 'dart:js';
 
 import 'package:cardholder/pages/home_page.dart';
 import 'package:cardholder/pages/scan_page.dart';
