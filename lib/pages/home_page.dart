@@ -1,4 +1,6 @@
+import 'package:cardholder/pages/scan_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class homepage extends StatefulWidget {
   static const String routeName= '/';
@@ -18,7 +20,10 @@ class _homepageState extends State<homepage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          context.goNamed(ScanPage.routeName);
+
+        },
         shape: const CircleBorder(),
         child: const Icon(Icons.add),
 
@@ -29,7 +34,7 @@ class _homepageState extends State<homepage> {
         notchMargin: 10,
         clipBehavior: Clip.antiAlias,
         child:  BottomNavigationBar(
-          
+
           onTap: (index){
             setState(() {
               selectedIndex= index;

@@ -1,7 +1,9 @@
 import 'dart:js';
 
 import 'package:cardholder/pages/home_page.dart';
+import 'package:cardholder/pages/scan_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
@@ -19,6 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       routerConfig:  _router,
+      builder: EasyLoading.init(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -34,6 +37,13 @@ class MyApp extends StatelessWidget {
         name:homepage.routeName,
         path: homepage.routeName,
         builder: (context, state) =>const homepage(),
+        routes: [
+          GoRoute(
+            name: ScanPage.routeName,
+            path: ScanPage.routeName,
+            builder: (context,state) => ScanPage()
+          ),
+        ]
 
      )
     ]
@@ -43,7 +53,7 @@ class MyApp extends StatelessWidget {
 //103.  5.04
 
 
-
+//104 f
 
 
 
