@@ -5,6 +5,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../utils/constants.dart';
+
 class ScanPage extends StatefulWidget {
   static const String routeName='scan';
   const ScanPage({super.key});
@@ -16,11 +18,19 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   bool isScanOver = false ;
   List<String> lines = [];
+  String name = '', phone='', email='', address='', company = '',
+      designation ='', website = '',image = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Scan Page'),
+        actions: [
+          IconButton(
+              onPressed:image.isEmpty ? null : (){},
+              icon: const Icon(Icons.arrow_forward)
+          )
+        ],
       ),
       body: ListView(
         children: [
@@ -43,6 +53,27 @@ class _ScanPageState extends State<ScanPage> {
               )
             ],
           ),
+         if(isScanOver) Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  DragTargetItem(property: ContactProperties.name, onDrop: getPropertyValue),
+                  DragTargetItem(property: ContactProperties.Phone, onDrop: getPropertyValue),
+                  DragTargetItem(property: ContactProperties.email, onDrop: getPropertyValue),
+                  DragTargetItem(property: ContactProperties.address, onDrop: getPropertyValue),
+                  DragTargetItem(property: ContactProperties.company, onDrop: getPropertyValue),
+                  DragTargetItem(property: ContactProperties.designation, onDrop: getPropertyValue),
+                  DragTargetItem(property: ContactProperties.website, onDrop: getPropertyValue),
+
+                ],
+              ),
+            ),
+          ),
+          if(isScanOver) const Padding(
+              padding: EdgeInsets.all(8),
+            child: Text(hint),
+          ),
           Wrap(
             children: lines.map((line) => LineItem(line: line)).toList(),
           )
@@ -56,6 +87,9 @@ class _ScanPageState extends State<ScanPage> {
       source: camera,
     );
     if (xFile != null) {
+      setState(() {
+        image = xFile.path;
+      });
       EasyLoading.show(status: 'Please Wait');
       final textRecognizer =
           TextRecognizer(script: TextRecognitionScript.latin);
@@ -73,6 +107,34 @@ class _ScanPageState extends State<ScanPage> {
         lines = tempList;
         isScanOver= true;
       });
+    }
+  }
+
+  getPropertyValue(String property, String value) {
+    switch (property) {
+      case ContactProperties.name:
+        name = value;
+        break;
+      case ContactProperties.Phone:
+        phone = value;
+        break;
+      case ContactProperties.email:
+        email = value;
+        break;
+
+      case ContactProperties.address:
+        address = value;
+        break;
+      case ContactProperties.company:
+        company = value;
+        break;
+
+      case ContactProperties.designation:
+        designation = value;
+        break;
+      case ContactProperties.website:
+        website = value;
+        break;
     }
   }
 }
@@ -108,18 +170,18 @@ class LineItem extends StatelessWidget {
   }
 }
 
-class DropTargetItem extends StatefulWidget {
+class DragTargetItem extends StatefulWidget {
   final String property;
   final Function(String, String) onDrop;
 
-  const DropTargetItem(
+  const DragTargetItem(
       {super.key, required this.property, required this.onDrop});
 
   @override
-  State<DropTargetItem> createState() => _DropTargetItemState();
+  State<DragTargetItem> createState() => _DragTargetItemState();
 }
 
-class _DropTargetItemState extends State<DropTargetItem> {
+class _DragTargetItemState extends State<DragTargetItem> {
  String dragItem = '';
   @override
   Widget build(BuildContext context) {
@@ -140,7 +202,7 @@ class _DropTargetItemState extends State<DropTargetItem> {
               ),
               child: Row(
                 children: [
-                  Expanded(child: Text(dragItem.isNotEmpty ? 'Drop here' : dragItem ),
+                  Expanded(child: Text(dragItem.isEmpty ? 'Drop here' : dragItem ),
 
                   ),
                  if(dragItem.isNotEmpty) InkWell(
@@ -172,3 +234,5 @@ class _DropTargetItemState extends State<DropTargetItem> {
     );
   }
 }
+
+//110  10.00
