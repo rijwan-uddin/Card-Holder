@@ -2,12 +2,16 @@ import 'package:cardholder/models/contact_model.dart';
 import 'package:cardholder/pages/form_page.dart';
 import 'package:cardholder/pages/home_page.dart';
 import 'package:cardholder/pages/scan_page.dart';
+import 'package:cardholder/providers/contact_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp( ChangeNotifierProvider(
+      create:(context) => ContactProvider(),
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -57,12 +61,8 @@ class MyApp extends StatelessWidget {
   );
 
 }
-//103.  5.04
 
-
-//104 f
-//113 f
-
+//117 9.00f
 
 
 
