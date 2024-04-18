@@ -51,9 +51,22 @@ class ContactModel{
 
     };
 
-    if(id > 0){
+    if (id > 0) {
       map[tblContactColId] = id;
     }
     return map;
   }
+
+  factory ContactModel.fromMap(Map<String, dynamic>map) =>
+      ContactModel(
+        name: map[tblContactColName],
+        phone: map[tblContactColPhone],
+        email: map[tblContactColEmail],
+        address: map[tblContactColAddress],
+        company: map[tblContactColCompany],
+        designation: map[tblContactColDesignation],
+        website: map[tblContactColWebsite],
+        image: map[tblContactColImage],
+        favorite: map[tblContactColFavorite] == 1? true : false,
+      );
 }
