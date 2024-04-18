@@ -21,6 +21,7 @@ class DbHelper {
     db.execute(_createTableContact);
     });
   }
+  Future<int> insertContact(ContactModel contactModel) async {
     final db = await _open();
     return  db.insert(tableContact, contactModel.toMap(),);
   }
