@@ -1,7 +1,9 @@
 import 'package:cardholder/models/contact_model.dart';
 import 'package:path/path.dart' as P;
 import 'package:sqflite/sqflite.dart';
+
 class DbHelper {
+
   final String _createTableContact= '''create table $tableContact(
   $tblContactColId integer primary key autoincrement,
   $tblContactColName text,
@@ -36,6 +38,7 @@ class DbHelper {
     return db.delete(tableContact,where: '$tblContactColId = ? ', whereArgs:  [id]);
  }
 }
+
 
 
 

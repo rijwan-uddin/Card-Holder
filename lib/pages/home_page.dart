@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/helper_function.dart';
+
 class homepage extends StatefulWidget {
   static const String routeName= '/';
   const homepage({super.key});
@@ -70,11 +72,27 @@ class _homepageState extends State<homepage> {
           itemCount: provider.contactList.length,
           itemBuilder: (context, index){
             final contact = provider.contactList[index];
-            return ListTile(
-              title: Text(contact.name),
-              trailing: IconButton(
-                onPressed: (){},
-                icon:  Icon(contact.favorite ? Icons.favorite: Icons.favorite_border),
+
+            return Dismissible(//swipe left to delete
+              key: UniqueKey(),
+              direction: DismissDirection.endToStart,
+              background: Container(
+                padding: EdgeInsets.only(right: 20),
+                alignment: Alignment.centerRight,
+                color: Colors.red,
+                child:Icon(Icons.delete,size:25,color: Colors.white,)
+              ),
+              confirmDismiss: _showConfirmationDialog,
+              onDismissed: (_) async {
+                await provider.deleteContact(contact.id);
+                showMsg(context,'Delete');
+              },
+              child: ListTile(
+                title: Text(contact.name),
+                trailing: IconButton(
+                  onPressed: (){},
+                  icon:  Icon(contact.favorite ? Icons.favorite: Icons.favorite_border),
+                ),
               ),
             );
           },
@@ -82,6 +100,29 @@ class _homepageState extends State<homepage> {
         ),
       ),
     );
+  }
+
+  Future<bool?> _showConfirmationDialog(DismissDirection direction) {
+    return showDialog(context: context, builder: (context)=> AlertDialog(
+      title: Text('Delete Contact'),
+      content: Text('Are you sure to delete this contact?'),
+      actions: [
+        OutlinedButton(
+          onPressed: (){
+            context.pop(false);
+          },
+          child: Text('No'),
+
+        ),
+        OutlinedButton(
+          onPressed: (){
+            context.pop(true);
+          },
+          child: Text('Yes'),
+
+        ),
+      ],
+    ));
   }
 }
 
