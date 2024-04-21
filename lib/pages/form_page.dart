@@ -152,7 +152,9 @@ class _FormPageState extends State<FormPage> {
       widget.contactModel.company = companyController.text;
       widget.contactModel.designation = designationController.text;
       widget.contactModel.website = webController.text;
-    }
+      // print(widget.contactModel);
+
+
     Provider.of<ContactProvider>(context, listen: false)
         .insertContact(widget.contactModel)
     .then((value){
@@ -167,4 +169,5 @@ class _FormPageState extends State<FormPage> {
 
     });
   }
+}
 }
