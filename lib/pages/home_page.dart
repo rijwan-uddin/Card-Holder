@@ -90,7 +90,9 @@ class _homepageState extends State<homepage> {
               child: ListTile(
                 title: Text(contact.name),
                 trailing: IconButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    provider.updateFavorite(contact);
+                  },
                   icon:  Icon(contact.favorite ? Icons.favorite: Icons.favorite_border),
                 ),
               ),
