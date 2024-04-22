@@ -48,6 +48,7 @@ class _homepageState extends State<homepage> {
             setState(() {
               selectedIndex= index;
             });
+            _fetchData();
 
           },
           currentIndex: selectedIndex,
@@ -125,6 +126,17 @@ class _homepageState extends State<homepage> {
         ),
       ],
     ));
+  }
+
+  void _fetchData() {
+    switch(selectedIndex){
+      case 0:
+        Provider.of<ContactProvider>(context,listen: false).getAllContacts();
+        break;
+      case 1:
+        Provider.of<ContactProvider>(context,listen: false).getAllFavoriteContacts();
+        break;
+    }
   }
 }
 
