@@ -68,7 +68,7 @@ class ContactModel{
         designation: map[tblContactColDesignation],
         website: map[tblContactColWebsite],
         image: map[tblContactColImage],
-        favorite: map[tblContactColFavorite] == '1'? true : false,
+        favorite: map[tblContactColFavorite] == 1? true : false,
       );
 
   @override
