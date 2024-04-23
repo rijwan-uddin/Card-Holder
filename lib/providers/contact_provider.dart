@@ -22,6 +22,7 @@ class ContactProvider extends ChangeNotifier {
     contactList = await db.getAllFavoriteContacts();
     notifyListeners();
   }
+  Future<ContactModel> getContactsById(int id) => db.getContactsById(id);
 
   Future<int> deleteContact(int id){
     return db.deleteContact(id);

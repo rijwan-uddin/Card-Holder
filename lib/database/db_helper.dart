@@ -45,6 +45,15 @@ class DbHelper {
    return List.generate(mapList.length, (index) => ContactModel.fromMap(mapList[index]));
 
  }
+
+  Future <ContactModel> getContactsById(int id) async {
+    final db = await _open();
+    final mapList= await db.query(tableContact,where: '$tblContactColId = ? ', whereArgs:  [id]);
+    return ContactModel.fromMap(mapList.first);
+
+  }
+
+
   Future <List<ContactModel>> getAllFavoriteContacts() async {
     final db = await _open();
     final mapList= await db.query(tableContact,where: '$tblContactColFavorite = ? ', whereArgs:  [1]);
