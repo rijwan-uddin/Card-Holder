@@ -62,6 +62,25 @@ class _ContactDetailsState extends State<ContactDetails> {
                           },
                           icon: Icon(Icons.sms),
                         ),
+                        IconButton(
+                          onPressed: () {
+                            sendEmail(contact.email);
+                          },
+                          icon: Icon(Icons.email),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            openBrowser(contact.website);
+                          },
+                          icon: Icon(Icons.open_in_browser),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            openMap(contact.address);
+                          },
+                          icon: Icon(Icons.map),
+                        ),
+
                       ],
                     ),
                   ),
@@ -102,4 +121,44 @@ class _ContactDetailsState extends State<ContactDetails> {
     }
 
   }
+
+  void sendEmail(String email) async {
+    final url = 'mailto:$email';
+    if(await canLaunchUrlString(url)){
+      await launchUrlString(url);
+    } else{
+      showMsg(context, 'can not perform this task');
+    }
+
+
+  }
+
+  void openBrowser(String website) async {
+    final url = 'https://$website';
+    if(await canLaunchUrlString(url)){
+      await launchUrlString(url);
+
+    } else {
+      showMsg(context,'can not perform this task');
+    }
+
+  }
+
+  void openMap(String address) async {
+
+    String url = '';
+    if(Platform.isAndroid){
+      url = 'geo:0,0?q=$address';
+    } else {
+      url = 'http://maps.apple.com/?q=$address';
+    }
+    if(await canLaunchUrlString(url)){
+      await launchUrlString(url);
+    } else {
+      showMsg(context, 'can not perform this task');
+    }
+  }
+
+
+
 }
