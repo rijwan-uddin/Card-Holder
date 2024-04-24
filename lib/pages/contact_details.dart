@@ -4,8 +4,10 @@ import 'package:cardholder/providers/contact_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../models/contact_model.dart';
+import '../utils/helper_function.dart';
 class ContactDetails extends StatefulWidget {
   static const String routeName = 'details';
   final int id;
@@ -37,7 +39,32 @@ class _ContactDetailsState extends State<ContactDetails> {
               return ListView(
                 padding: EdgeInsets.all(8),
                 children: [
-                  Image.file(File(contact.image), width: double.infinity,height: 250,fit:BoxFit.cover ,)
+                  Image.file(
+                    File(contact.image),
+                    width: double.infinity,
+                    height: 250,
+                    fit: BoxFit.cover,
+                  ),
+                  ListTile(
+                    title: Text(contact.phone),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            callContact(contact.phone);
+                          },
+                          icon: Icon(Icons.call),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            smsContact(contact.phone);
+                          },
+                          icon: Icon(Icons.sms),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               );
             }
@@ -49,6 +76,30 @@ class _ContactDetailsState extends State<ContactDetails> {
         ),
       ),
     );
+
+  }
+
+  void callContact(String phone) async {
+    final url = 'tel:$phone';
+    if(await canLaunchUrlString(url)){
+
+      await launchUrlString(url);
+    }
+    else{
+      showMsg(context, 'can not perform this task');
+    }
+
+  }
+
+  void smsContact(String phone) async {
+    final url = 'sms:$phone';
+    if(await canLaunchUrlString(url)){
+
+    await launchUrlString(url);
+    }
+    else{
+    showMsg(context, 'can not perform this task');
+    }
 
   }
 }
