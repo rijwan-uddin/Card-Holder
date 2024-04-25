@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cardholder/providers/contact_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -75,7 +74,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                           icon: Icon(Icons.open_in_browser),
                         ),
                         IconButton(
-                          
+
                           onPressed: () {
                             openMap(contact.address);
                           },
