@@ -75,6 +75,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                           icon: Icon(Icons.open_in_browser),
                         ),
                         IconButton(
+                          
                           onPressed: () {
                             openMap(contact.address);
                           },
@@ -105,7 +106,7 @@ class _ContactDetailsState extends State<ContactDetails> {
       await launchUrlString(url);
     }
     else{
-      showMsg(context, 'can not perform this task');
+      showMsg(context, 'Could not perform this task');
     }
 
   }
@@ -117,7 +118,7 @@ class _ContactDetailsState extends State<ContactDetails> {
     await launchUrlString(url);
     }
     else{
-    showMsg(context, 'can not perform this task');
+    showMsg(context, 'Could not perform this task');
     }
 
   }
@@ -127,7 +128,7 @@ class _ContactDetailsState extends State<ContactDetails> {
     if(await canLaunchUrlString(url)){
       await launchUrlString(url);
     } else{
-      showMsg(context, 'can not perform this task');
+      showMsg(context, 'Could not perform this task');
     }
 
 
@@ -139,7 +140,7 @@ class _ContactDetailsState extends State<ContactDetails> {
       await launchUrlString(url);
 
     } else {
-      showMsg(context,'can not perform this task');
+      showMsg(context,'Could not perform this task');
     }
 
   }
@@ -155,7 +156,7 @@ class _ContactDetailsState extends State<ContactDetails> {
     if(await canLaunchUrlString(url)){
       await launchUrlString(url);
     } else {
-      showMsg(context, 'can not perform this task');
+      showMsg(context, 'Could not perform this task');
     }
   }
 
